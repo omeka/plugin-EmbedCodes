@@ -11,12 +11,25 @@ class EmbedCodes extends Omeka_Plugin_AbstractPlugin
     
     public function hookInstall()
     {
-        
+        $db = get_db();
+        $sql = '            
+            CREATE TABLE IF NOT EXISTS `$db->Embed` (
+              `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+              `item_id` int(10) unsigned NOT NULL,
+              `ip` tinytext NOT NULL,
+              `host` tinytext NOT NULL,
+              `first_view` date DEFAULT NULL,
+              `last_view` date DEFAULT NULL,
+              `view_count` int(11) NOT NULL DEFAULT "0",
+              PRIMARY KEY (`id`)
+            ) ENGINE=MyISAM ; ';
+        $db->query($sql);
     }
     
     public function hookUninstall()
     {
-        
+        $db = get_db();
+        $sql = 'DELETE TABLE `$db->Embed`; ';
     }
         
     
