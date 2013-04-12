@@ -1,18 +1,18 @@
 <?php
 
-class EmbedCodes extends Omeka_Plugin_AbstractPlugin
+class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
 {
     protected $_hooks = array('install', 
                               'uninstall', 
                               'define_routes',
-                              'public_append_to_items_show'
+                              'public_items_show'
                               );
     
     
     public function hookInstall()
     {
-        $db = get_db();
-        $sql = '            
+        $db = $this->_db;
+        $sql = "            
             CREATE TABLE IF NOT EXISTS `$db->Embed` (
               `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
               `item_id` int(10) unsigned NOT NULL,
@@ -20,24 +20,23 @@ class EmbedCodes extends Omeka_Plugin_AbstractPlugin
               `host` tinytext NOT NULL,
               `first_view` date DEFAULT NULL,
               `last_view` date DEFAULT NULL,
-              `view_count` int(11) NOT NULL DEFAULT "0",
+              `view_count` int(11) NOT NULL DEFAULT '0',
               PRIMARY KEY (`id`)
-            ) ENGINE=MyISAM ; ';
+            ) ENGINE=MyISAM ; ";
         $db->query($sql);
     }
     
     public function hookUninstall()
     {
-        $db = get_db();
-        $sql = 'DELETE TABLE `$db->Embed`; ';
+        $db = $this->_db;
+        $sql = "DROP TABLE IF EXISTS `$db->Embed`; ";
+        $db->query($sql);
     }
-        
     
-    public function hookPublicAppendToItemsShow($array)
+    public function hookPublicItemsShow($args)
     {
-
-        $item = get_current_item();
-        $uri = abs_uri(array('controller'=>'items', 'action'=>'embed', 'id'=>$item->id), 'id');
+        $item = $args['item'];
+        $uri = absolute_url(array('controller'=>'items', 'action'=>'embed', 'id'=>$item->id), 'id');
         $iframe = "<iframe id='clippy' width='640' height='360' src='$uri'></iframe>";
         $clippy = '
 <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
@@ -63,8 +62,7 @@ class EmbedCodes extends Omeka_Plugin_AbstractPlugin
 />
 </object>
                         ';
-                        
-        echo $clippy;
+        echo "Embed " . $clippy;
     }
     
     public function hookDefineRoutes($array)
@@ -82,7 +80,4 @@ class EmbedCodes extends Omeka_Plugin_AbstractPlugin
             )
         );        
     }
-    
-    
-    
 }

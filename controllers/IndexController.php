@@ -13,6 +13,7 @@ class EmbedCodes_IndexController extends Omeka_Controller_AbstractActionControll
 
         $item = $this->_helper->db->findById();
         $this->view->item = $item;
+        $this->view->files = $item->Files;
         
         $request = Zend_Controller_Front::getInstance()->getRequest();
         $ip = $request->getClientIp();

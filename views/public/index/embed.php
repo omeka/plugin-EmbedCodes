@@ -1,14 +1,12 @@
 <?php
-queue_css('style');
-display_css();
+queue_css_file('style');
+echo head_css();
 ?>
 
 <div>
 <h1><?php echo metadata('item', array('Dublin Core', 'Title')); ?></h1>
 
-<?php 
-if(item_has_thumbnail()) {
-    echo item_thumbnail();    
-}
-?>
+<?php if (metadata('item', 'has files')): ?>
+    <div class="element-text"><?php echo files_for_item(); ?></div>
+<?php endif; ?>
 </div>
