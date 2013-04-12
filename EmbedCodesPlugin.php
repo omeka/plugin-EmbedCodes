@@ -8,6 +8,7 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
                               'public_items_show'
                               );
     
+    protected $_filters = array('admin_navigation_main');
     
     public function hookInstall()
     {
@@ -16,7 +17,7 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
             CREATE TABLE IF NOT EXISTS `$db->Embed` (
               `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
               `item_id` int(10) unsigned NOT NULL,
-              `ip` tinytext NOT NULL,
+              `url` text NOT NULL,
               `host` tinytext NOT NULL,
               `first_view` date DEFAULT NULL,
               `last_view` date DEFAULT NULL,
@@ -79,5 +80,11 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
                 )
             )
         );        
+    }
+    
+    public function filterAdminNavigationMain($navArray)
+    {
+        $navArray['EmbedCodes'] = array('label'=>__('Embedded Items'), 'uri'=>url('embed-codes'));
+        return $navArray;
     }
 }

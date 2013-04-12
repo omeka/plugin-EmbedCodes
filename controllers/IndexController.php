@@ -5,21 +5,22 @@ class EmbedCodes_IndexController extends Omeka_Controller_AbstractActionControll
         
     public function init()
     {        
-        $this->_helper->db->setDefaultModelName('Item');
+        $this->_helper->db->setDefaultModelName('Embed');
     }
     
     public function embedAction()
     {
-
-        $item = $this->_helper->db->findById();
+        $itemId = $this->getParam('id');
+        $item = $this->_helper->db->getTable('Item')->find($itemId);
         $this->view->item = $item;
         $this->view->files = $item->Files;
         
         $request = Zend_Controller_Front::getInstance()->getRequest();
         $ip = $request->getClientIp();
         $host = $request->getHttpHost();
+        $url = $request->getHeader('Referer');
         
-        $embed = $this->_helper->db->getTable('Embed')->findByIpAndIdOrNew($ip, $item->id);
+        $embed = $this->_helper->db->getTable('Embed')->findByUrlAndIdOrNew($url, $item->id);
 
         if(is_null($embed->first_view)) {
             $embed->first_view = date('Y-m-d H:i:s');
@@ -30,7 +31,11 @@ class EmbedCodes_IndexController extends Omeka_Controller_AbstractActionControll
         $embed->view_count = $embed->view_count + 1;
         $embed->last_view = date('Y-m-d H:i:s');
         $embed->save();
-
-        
+    }
+    
+    public function browseAction()
+    {
+        parent::browseAction();
+        $this->view->total = $this->_helper->db->getTable()->totalEmbeds();
     }
 }
