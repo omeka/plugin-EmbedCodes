@@ -20,7 +20,7 @@ class EmbedCodes_IndexController extends Omeka_Controller_AbstractActionControll
         $host = $request->getHttpHost();
         $url = $request->getHeader('Referer');
         
-        $embed = $this->_helper->db->getTable('Embed')->findByUrlAndIdOrNew($url, $item->id);
+        $embed = $this->_helper->db->getTable()->findByUrlAndIdOrNew($url, $item->id);
 
         if(is_null($embed->first_view)) {
             $embed->first_view = date('Y-m-d H:i:s');
@@ -37,5 +37,13 @@ class EmbedCodes_IndexController extends Omeka_Controller_AbstractActionControll
     {
         parent::browseAction();
         $this->view->total = $this->_helper->db->getTable()->totalEmbeds();
+    }
+    
+    public function itemAction()
+    {
+        $itemId = $this->getParam('id');
+        $this->view->embeds = $this->_helper->db->getTable()->findBy(array('item_id'=>$itemId));
+        $this->view->item = $this->_helper->db->getTable('Item')->find($itemId);
+        $this->view->total = $this->_helper->db->getTable()->totalEmbeds($itemId);
     }
 }

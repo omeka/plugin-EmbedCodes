@@ -6,7 +6,8 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
                               'uninstall', 
                               'define_routes',
                               'public_items_show',
-                              'admin_items_show_sidebar'
+                              'admin_items_show_sidebar',
+                              'admin_items_browse_detailed_each'
                               );
     
     protected $_filters = array('admin_navigation_main');
@@ -67,17 +68,29 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
         echo "Embed " . $clippy;
     }
     
+    public function hookAdminItemsBrowseDetailedEach($args)
+    {
+        $item = $args['item'];
+        $embedTable = get_db()->getTable('Embed');
+        $totalEmbeds = $embedTable->totalEmbeds($item->id);
+        $html = '<p>';
+        $html .= "<a href='" . url('embed-codes/item/' . $item->id) . "'>" . __('Embeds (%d)', $totalEmbeds) . "</a>";
+        $html .= '</p>';
+        echo $html;
+    }
+    
     public function hookAdminItemsShowSidebar($args)
     {
         $item = $args['item'];
         $embedTable = get_db()->getTable('Embed');
         $totalEmbeds = $embedTable->totalEmbeds($item->id);
         $allEmbeds = $embedTable->findBy(array('item_id'=>$item->id));
-        $html = "<div class='panel'>";
+        $html = "<div class='embed-codes panel'>";
         $html .= "<h4>" . __("Embeds") . "</h4>";
+        $html .= "<a href='" . url('embed-codes/item/' . $item->id) . "'>" . __('Details') . "</a>";
         $html .= "<p>" . __("Total views: %d", $totalEmbeds) . "</p>";
         $html .= "<p>" . __("Total embeds: %d", count($allEmbeds)) .  "</p>";
-        $html .= "<p class='explanation'>" . __("Date is last viewed. Click to see the page.") . "</p>";
+        $html .= "<p class='explanation'>" . __("Date is last viewed. Click to see the external page.") . "</p>";
         $html .= "<ul>";
         foreach($allEmbeds as $embed) {
             $html .= "<li>";
@@ -103,7 +116,18 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
                     'action'       => 'embed',
                 )
             )
-        );        
+        );     
+        $router->addRoute(
+            'embed-item',
+            new Zend_Controller_Router_Route(
+                'embed-codes/item/:id',
+                array(
+                    'module' => 'embed-codes',
+                    'controller' => 'index',
+                    'action' => 'item'        
+                )        
+            )      
+        );   
     }
     
     public function filterAdminNavigationMain($navArray)
