@@ -5,7 +5,8 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
     protected $_hooks = array('install', 
                               'uninstall', 
                               'define_routes',
-                              'public_items_show'
+                              'public_items_show',
+                              'admin_items_show_sidebar'
                               );
     
     protected $_filters = array('admin_navigation_main');
@@ -64,6 +65,29 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
 </object>
                         ';
         echo "Embed " . $clippy;
+    }
+    
+    public function hookAdminItemsShowSidebar($args)
+    {
+        $item = $args['item'];
+        $embedTable = get_db()->getTable('Embed');
+        $totalEmbeds = $embedTable->totalEmbeds($item->id);
+        $allEmbeds = $embedTable->findBy(array('item_id'=>$item->id));
+        $html = "<div class='panel'>";
+        $html .= "<h4>" . __("Embeds") . "</h4>";
+        $html .= "<p>" . __("Total views: %d", $totalEmbeds) . "</p>";
+        $html .= "<p>" . __("Total embeds: %d", count($allEmbeds)) .  "</p>";
+        $html .= "<p class='explanation'>" . __("Date is last viewed. Click to see the page.") . "</p>";
+        $html .= "<ul>";
+        foreach($allEmbeds as $embed) {
+            $html .= "<li>";
+            $html .= "<a href='{$embed->url}'>{$embed->last_view}</a> ";
+            $html .= __("(%d views)", $embed->view_count);
+            $html .= "</li>";
+        }
+        $html .= "</ul>";
+        $html .= "</div>";
+        echo $html;
     }
     
     public function hookDefineRoutes($array)

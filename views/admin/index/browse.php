@@ -4,7 +4,7 @@ echo head(array('title'=>__("Embed Statistics"), 'bodyclass'=>'embed browse'));
 
 ?>
 <div id='primary'>
-<p><?php echo __('Total embeddings'); ?>: <?php echo $total; ?></p>
+<p><?php echo __('Total embeds: %d', $total); ?></p>
 
 <div class="pagination"><?php echo pagination_links(); ?></div>
 
