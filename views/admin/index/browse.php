@@ -45,7 +45,6 @@ echo head(array('title'=>__("Embed Statistics"), 'bodyclass'=>'embed browse'));
     <?php endforeach; ?>
     </tbody>
 </table>
-
-
-
 </div>
+
+<?php echo foot(); ?>
