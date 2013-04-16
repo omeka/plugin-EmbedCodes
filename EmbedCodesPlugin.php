@@ -42,9 +42,9 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
         $uri = absolute_url(array('controller'=>'items', 'action'=>'embed', 'id'=>$item->id), 'id');
         $iframe = "<iframe id='clippy' width='560' height='315' src='$uri'></iframe>";
         $clippy = '
-<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
-        width="110"
-        height="14"
+<object style="position:relative; left:6px;" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+        width="220"
+        height="34"
         id="clippy" >
 <param name="movie" value="' . WEB_PLUGIN . '/EmbedCodes/clippy.swf"/>
 <param name="allowScriptAccess" value="always" />
@@ -53,8 +53,8 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
 <param NAME="FlashVars" value="text=' . $iframe . '">
 
 <embed src="' . WEB_PLUGIN . '/EmbedCodes/clippy.swf"
-       width="110"
-       height="14"
+       width="220"
+       height="34"
        name="clippy"
        quality="high"
        allowScriptAccess="always"
@@ -65,7 +65,7 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
 />
 </object>
                         ';
-        echo "Embed " . $clippy;
+        echo "<div id='embed-codes'><h2 style='float:left'>Embed</h2> " . $clippy . "</div>";
     }
     
     public function hookAdminItemsBrowseDetailedEach($args)
