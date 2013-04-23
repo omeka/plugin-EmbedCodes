@@ -44,19 +44,21 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
         $clippy = '
 <object style="position:relative; left:6px;" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
         width="220"
-        height="34"
+        height="36"
         id="clippy" >
 <param name="movie" value="' . WEB_PLUGIN . '/EmbedCodes/clippy.swf"/>
 <param name="allowScriptAccess" value="always" />
 <param name="quality" value="high" />
 <param name="scale" value="noscale" />
+<param name="wmode" value="transparent" />
 <param NAME="FlashVars" value="text=' . $iframe . '">
 
 <embed src="' . WEB_PLUGIN . '/EmbedCodes/clippy.swf"
        width="220"
-       height="34"
+       height="36"
        name="clippy"
        quality="high"
+       wmode="transparent"
        allowScriptAccess="always"
        type="application/x-shockwave-flash"
        pluginspage="http://www.macromedia.com/go/getflashplayer"
@@ -65,7 +67,7 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
 />
 </object>
                         ';
-        echo "<div id='embed-codes'><h2 style='float:left'>Embed</h2> " . $clippy . "</div>";
+        echo "<div id='embed-codes'><h2>Embed</h2><p>Click the icon to copy the code to your clipboard " . $clippy . "</p></div>";
     }
     
     public function hookAdminItemsBrowseDetailedEach($args)
