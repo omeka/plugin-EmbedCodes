@@ -40,9 +40,9 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
     {
         $item = $args['item'];
         $uri = absolute_url(array('controller'=>'items', 'action'=>'embed', 'id'=>$item->id), 'id');
-        $iframe = "<iframe id='clippy' width='560' height='315' src='$uri'></iframe>";
+        $iframe = "<iframe class='omeka-embed' width='560' height='220' src='$uri'></iframe>";
         $clippy = '
-<object style="position:relative; left:6px;" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+<object style="position:relative; left:6px; top: 14px" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
         width="220"
         height="36"
         id="clippy" >
