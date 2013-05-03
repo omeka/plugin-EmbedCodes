@@ -26,7 +26,7 @@ echo head_css();
         <?php if($rights != ''): ?>
         <span><?php echo $rights; ?> | </span>
         <?php endif; ?>
-        View in <?php echo link_to_home_page(null, array('target'=>'_blank')); ?>
+        <?php echo __('From: '); ?><?php echo link_to_home_page(null, array('target'=>'_blank')); ?>
         </p>
          
 
