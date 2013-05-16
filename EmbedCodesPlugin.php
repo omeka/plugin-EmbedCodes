@@ -40,7 +40,13 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
     {
         $item = $args['item'];
         $uri = absolute_url(array('controller'=>'items', 'action'=>'embed', 'id'=>$item->id), 'id');
-        $iframe = "<iframe class='omeka-embed' width='560' height='220' src='$uri'></iframe>";
+        
+        $html = "<div class='wrapper' style='width:80%; height:100%; margin:0 auto; background:#CCC}'>";
+        $html .= "<div class='h_iframe' style='position:relative; display:block; width:100%; height:auto; '>";
+        $html .= "<iframe class='omeka-embed' style='position:absolute; top:0; left:0; width:100%; height:100%;' src='$uri' frameborder='0' allowfullscreen></iframe>";
+        $html .= "</div></div>";
+        
+        
         $clippy = '
 <object style="position:relative; left:6px; top: 14px" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
         width="220"
@@ -51,7 +57,7 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
 <param name="quality" value="high" />
 <param name="scale" value="noscale" />
 <param name="wmode" value="transparent" />
-<param NAME="FlashVars" value="text=' . $iframe . '">
+<param NAME="FlashVars" value="text=' . $html . '">
 
 <embed src="' . WEB_PLUGIN . '/EmbedCodes/clippy.swf"
        width="220"
@@ -62,7 +68,7 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
        allowScriptAccess="always"
        type="application/x-shockwave-flash"
        pluginspage="http://www.macromedia.com/go/getflashplayer"
-       FlashVars="text=' . $iframe . '"
+       FlashVars="text=' . $html . '"
        
 />
 </object>
