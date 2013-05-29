@@ -45,13 +45,9 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
         $html .= "<p>Copy the code below into your web page</p>";
         $iFrameHtml = "<iframe class='omeka-embed' src='$uri' width='560px' height='315px' frameborder='0' allowfullscreen></iframe>";
         $html .= "<textarea id='embed-code-text' style='font-family:monospace' rows='4'>$iFrameHtml</textarea>";
-        $html .= "<script type='text/javascript'>";
-        $html .= "document.getElementById('embed-code-text').select();";
-        $html .= "</script>";
         $html .= "</div>";
         
         echo $html;
-
     }
     
     public function hookAdminItemsBrowseDetailedEach($args)
