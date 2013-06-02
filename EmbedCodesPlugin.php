@@ -7,10 +7,16 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
                               'define_routes',
                               'public_items_show',
                               'admin_items_show_sidebar',
-                              'admin_items_browse_detailed_each'
+                              'admin_items_browse_detailed_each',
+                              'initialize'
                               );
     
     protected $_filters = array('admin_navigation_main');
+    
+    public function hookInitialize()
+    {
+        add_translation_source(dirname(__FILE__) . '/languages');
+    }
     
     public function hookInstall()
     {
@@ -41,8 +47,8 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
         $item = $args['item'];
         $uri = absolute_url(array('controller'=>'items', 'action'=>'embed', 'id'=>$item->id), 'id');
         
-        $html = "<div id='embed-codes'><h2>Embed</h2>";
-        $html .= "<p>Copy the code below into your web page</p>";
+        $html = "<div id='embed-codes'><h2>" . __('Embed') . "</h2>";
+        $html .= "<p>" . __("Copy the code below into your web page") . "</p>";
         $iFrameHtml = "<iframe class='omeka-embed' src='$uri' width='560px' height='315px' frameborder='0' allowfullscreen></iframe>";
         $html .= "<textarea id='embed-code-text' style='font-family:monospace' rows='4'>$iFrameHtml</textarea>";
         $html .= "</div>";
