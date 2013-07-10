@@ -23,7 +23,7 @@ echo head_css();
         <div class="thumbnail"><?php echo file_image('thumbnail', array(), $files[0]); ?></div>
     <?php endif; ?>
     <div class='content'>
-    <h1><a target='_blank' href="<?php echo record_url($item, 'show') ; ?>"><?php echo metadata('item', array('Dublin Core', 'Title')); ?></a></h1>
+    <div style='text-transform:uppercase;'><a target='_blank' href="<?php echo record_url($item, 'show') ; ?>"><?php echo metadata('item', array('Dublin Core', 'Title')); ?></a></div>
         <p>
         <?php if($rights != ''): ?>
         <span><?php echo $rights; ?> | </span>
