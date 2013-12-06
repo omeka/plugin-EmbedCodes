@@ -2,13 +2,12 @@
 <html>
 <head>
 <?php
-queue_css_file('style');
 $css = "
-div.content {margin-right: 10px; max-width:310px;}
-div.thumbnail {float:right;}
-h1 {margin: 0;}
-
-
+.thumbnail { float:left; margin: 0 20px 20px 0; }
+.thunbnail img { vertical-align: bottom; }
+h1 { margin: 0; }
+html { border: 1px solid #e7e7e7; font-family: 'Helvetica', 'Arial', sans-serif; margin: 2em 0; }
+body { margin: 20px 20px 0 20px; }
 ";
 queue_css_string($css);
 echo head_css();
@@ -17,7 +16,7 @@ echo head_css();
 <?php $rights = metadata($item, array('Dublin Core', 'Rights')); ?>
 </head>
 <body>
-<div style="width: 450px">
+<div>
     <?php if (metadata('item', 'has files')): ?>
         <?php $files = $item->Files; ?>
         <div class="thumbnail"><?php echo file_image('thumbnail', array(), $files[0]); ?></div>
