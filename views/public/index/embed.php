@@ -12,7 +12,7 @@ body { margin: 20px 20px 0 20px; }
 .rights { margin: 0; font-size: .75em; display: block; cursor: pointer; color: #fff; background-color: maroon; padding: 5px 10px; position: fixed; top: 0; left: 0; text-align: left; font-weight: bold; }
 .explanation { display: none; }
 .caption { display: inline; padding-bottom: 55px; }
-.rights:hover .explanation { display: inline-block; text-align: left; font-weight: normal; margin: 1em 0 0; }
+.rights:hover .explanation { display: block; text-align: left; font-weight: normal; margin: 1em 0 0; }
 ";
 queue_css_string($css);
 echo head_css();
