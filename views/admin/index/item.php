@@ -1,6 +1,12 @@
 <?php
+$title = empty($item)
+    ? __('[Deleted] (#%d)', $embeds[0]->item_id)
+    : metadata($item, array('Dublin Core', 'Title'));
 
-echo head(array('title'=>__("Embed Statistics for %s", metadata($item, array('Dublin Core', 'Title'))), 'bodyclass'=>'embed browse'));
+echo head(array(
+    'title'=>__('Embed Statistics for "%s"', $title),
+    'bodyclass' => 'embed browse',
+));
 
 ?>
 <div id='primary'>
@@ -25,7 +31,6 @@ echo head(array('title'=>__("Embed Statistics for %s", metadata($item, array('Du
     <tbody>
     
     <?php foreach(loop('embed', $embeds) as $embed):?>
-    <?php $item = get_record_by_id('item', $embed->item_id); ?>
     <tr>
         <td><?php echo $embed->host; ?></td>
         <td><a href="<?php echo $embed->url; ?>"><?php echo $embed->url; ?></a></td>

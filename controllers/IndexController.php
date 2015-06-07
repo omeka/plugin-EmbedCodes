@@ -12,14 +12,12 @@ class EmbedCodes_IndexController extends Omeka_Controller_AbstractActionControll
     {
         $itemId = $this->getParam('id');
         $item = $this->_helper->db->getTable('Item')->find($itemId);
-        $this->view->item = $item;
-        $this->view->files = $item->Files;
-        
+
         $request = Zend_Controller_Front::getInstance()->getRequest();
         $host = $request->getHttpHost();
         $url = $request->getHeader('Referer');
-        if(!empty($url)) {
-            $embed = $this->_helper->db->getTable()->findByUrlAndIdOrNew($url, $item->id);
+        if (!empty($url)) {
+            $embed = $this->_helper->db->getTable()->findByUrlAndIdOrNew($url, $itemId);
             if(is_null($embed->first_view)) {
                 $embed->first_view = date('Y-m-d H:i:s');
                 $embed->view_count = 0;
@@ -30,6 +28,14 @@ class EmbedCodes_IndexController extends Omeka_Controller_AbstractActionControll
             $embed->last_view = date('Y-m-d H:i:s');
             $embed->save();
         }
+
+        if (empty($item)) {
+            throw new Omeka_Controller_Exception_404;
+        }
+
+        set_current_record('item', $item);
+        $this->view->item = $item;
+        $this->view->files = $item->Files;
     }
     
     public function browseAction()
