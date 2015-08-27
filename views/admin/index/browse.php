@@ -18,8 +18,8 @@ echo head(array('title'=>__("Embed Statistics"), 'bodyclass'=>'embed browse'));
         $browseHeadings[__('First viewed')] = 'first_view';
         $browseHeadings[__('Last viewed')] = 'last_view';
         $browseHeadings[__('Views')] = 'view_count';
-        echo browse_sort_links($browseHeadings, array('link_tag' => 'th scope="col"', 'list_tag' => '')); 
-        ?>    
+        echo browse_sort_links($browseHeadings, array('link_tag' => 'th scope="col"', 'list_tag' => ''));
+        ?>
     </tr>
     </thead>
     <tbody>
@@ -28,7 +28,13 @@ echo head(array('title'=>__("Embed Statistics"), 'bodyclass'=>'embed browse'));
     <?php $item = get_record_by_id('item', $embed->item_id); ?>
     <tr>
         <td>
-            <span class='title'><?php echo link_to($item, 'show', metadata($item, array('Dublin Core', 'Title')));  ?></span>
+            <span class='title'>
+            <?php if ($item):
+                echo link_to($item, 'show', metadata($item, array('Dublin Core', 'Title')));
+            else:
+                echo __('[Deleted] (#%d)', $embed->item_id);
+            endif; ?>
+            </span>
             <ul class='action-links group'>
             <li class='details-link'><a href='<?php echo url('embed-codes/item/' . $embed->item_id); ?>'>
                 <?php echo __('All embeds for this item'); ?></a>
