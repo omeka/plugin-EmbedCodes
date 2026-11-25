@@ -78,15 +78,6 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
         $html .= "<a href='" . url('embed-codes/item/' . $item->id) . "'>" . __('Details') . "</a>";
         $html .= "<p>" . __("Total views: %d", $totalEmbeds) . "</p>";
         $html .= "<p>" . __("Total embeds: %d", count($allEmbeds)) .  "</p>";
-        $html .= "<p class='explanation'>" . __("Date is last viewed. Click to see the external page.") . "</p>";
-        $html .= "<ul>";
-        foreach($allEmbeds as $embed) {
-            $html .= "<li>";
-            $html .= "<a href='{$embed->url}'>{$embed->last_view}</a> ";
-            $html .= __("(%d views)", $embed->view_count);
-            $html .= "</li>";
-        }
-        $html .= "</ul>";
         $html .= "</div>";
         echo $html;
     }

@@ -27,8 +27,8 @@ echo head(array('title'=>__("Embed Statistics for %s", metadata($item, array('Du
         <?php foreach(loop('embed', $embeds) as $embed):?>
         <?php $item = get_record_by_id('item', $embed->item_id); ?>
         <tr>
-            <td><?php echo $embed->host; ?></td>
-            <td><a href="<?php echo $embed->url; ?>"><?php echo $embed->url; ?></a></td>
+            <td><?php echo metadata('embed', 'host'); ?></td>
+            <td><?php echo metadata('embed', 'url'); ?></td>
             <td><?php echo metadata('embed', 'first_view'); ?></td>
             <td><?php echo metadata('embed', 'last_view'); ?></td>
             <td><?php echo metadata('embed', 'view_count'); ?></td>

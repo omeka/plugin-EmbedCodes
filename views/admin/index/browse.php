@@ -37,8 +37,8 @@ echo head(array('title'=>__("Embed Statistics"), 'bodyclass'=>'embed browse'));
                 <?php fire_plugin_hook('embed_codes_browse_each', array('view'=>$this, 'embed'=>$embed, 'item'=>$item)); ?>
                 </ul>
             </td>
-            <td><?php echo $embed->host; ?></td>
-            <td><a href="<?php echo $embed->url; ?>"><?php echo $embed->url; ?></a></td>
+            <td><?php echo metadata('embed', 'host'); ?></td>
+            <td><?php echo metadata('embed', 'url'); ?></td>
             <td><?php echo metadata('embed', 'first_view'); ?></td>
             <td><?php echo metadata('embed', 'last_view'); ?></td>
             <td><?php echo metadata('embed', 'view_count'); ?></td>
@@ -49,4 +49,4 @@ echo head(array('title'=>__("Embed Statistics"), 'bodyclass'=>'embed browse'));
 </div>
 </div>
 
-<?php echo foot(); ?>
+<?php echo foot();
