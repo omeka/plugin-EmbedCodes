@@ -12,6 +12,10 @@ class EmbedCodes_IndexController extends Omeka_Controller_AbstractActionControll
     {
         $itemId = $this->getParam('id');
         $item = $this->_helper->db->getTable('Item')->find($itemId);
+        if (!$item) {
+            throw new Omeka_Controller_Exception_404;
+        }
+
         $this->view->item = $item;
         $this->view->files = $item->Files;
         
