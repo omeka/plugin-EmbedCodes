@@ -25,16 +25,18 @@ echo head(array('title'=>__("Embed Statistics"), 'bodyclass'=>'embed browse'));
         </thead>
         <tbody>
         
-        <?php foreach(loop('embed', $embeds) as $embed):?>
-        <?php $item = get_record_by_id('item', $embed->item_id); ?>
+        <?php foreach(loop('embed', $embeds) as $embed):
+            $item = get_record_by_id('item', $embed->item_id);
+            $title = $item ? link_to($item, 'show', metadata($item, array('Dublin Core', 'Title'))) :  __('[Missing item]');
+        ?>
         <tr>
             <td>
-                <span class='title'><?php echo link_to($item, 'show', metadata($item, array('Dublin Core', 'Title')));  ?></span>
+                <span class='title'><?php echo $title; ?></span>
                 <ul class='action-links group'>
                 <li class='details-link'><a href='<?php echo url('embed-codes/item/' . $embed->item_id); ?>'>
                     <?php echo __('All embeds for this item'); ?></a>
                 </li>
-                <?php fire_plugin_hook('embed_codes_browse_each', array('view'=>$this, 'embed'=>$embed, 'item'=>$item)); ?>
+                <?php fire_plugin_hook('embed_codes_browse_each', array('view' => $this, 'embed' => $embed, 'item' => $item)); ?>
                 </ul>
             </td>
             <td><?php echo metadata('embed', 'host'); ?></td>

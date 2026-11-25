@@ -1,7 +1,6 @@
 <?php
-
-echo head(array('title'=>__("Embed Statistics for %s", metadata($item, array('Dublin Core', 'Title'))), 'bodyclass'=>'embed browse'));
-
+$title = $item ? __("Embed Statistics for %s", metadata($item, array('Dublin Core', 'Title'))) : __('Embed Statistics');
+echo head(array('title' => $title, 'bodyclass' => 'embed browse'));
 ?>
 <div id='primary'>
 <p><?php echo __('Total embeds: %d', $total); ?></p>
