@@ -40,57 +40,52 @@ msgid "Total views: %d"
 msgstr ""
 
 #: EmbedCodesPlugin.php:80 views/admin/index/browse.php:7
-#: views/admin/index/item.php:7
+#: views/admin/index/item.php:6
 #, php-format
 msgid "Total embeds: %d"
 msgstr ""
 
-#: EmbedCodesPlugin.php:81
-msgid "Date is last viewed. Click to see the external page."
-msgstr ""
-
-#: EmbedCodesPlugin.php:86
-#, php-format
-msgid "(%d views)"
-msgstr ""
-
-#: EmbedCodesPlugin.php:123
+#: EmbedCodesPlugin.php:114
 msgid "Embedded Items"
 msgstr ""
 
-#: views/admin/index/browse.php:3
+#: views/admin/index/browse.php:3 views/admin/index/item.php:2
 msgid "Embed Statistics"
 msgstr ""
 
-#: views/admin/index/browse.php:16 views/admin/index/item.php:16
+#: views/admin/index/browse.php:17 views/admin/index/item.php:15
 msgid "Site"
 msgstr ""
 
-#: views/admin/index/browse.php:17 views/admin/index/item.php:17
+#: views/admin/index/browse.php:18 views/admin/index/item.php:16
 msgid "Link"
 msgstr ""
 
-#: views/admin/index/browse.php:18 views/admin/index/item.php:18
+#: views/admin/index/browse.php:19 views/admin/index/item.php:17
 msgid "First viewed"
 msgstr ""
 
-#: views/admin/index/browse.php:19 views/admin/index/item.php:19
+#: views/admin/index/browse.php:20 views/admin/index/item.php:18
 msgid "Last viewed"
 msgstr ""
 
-#: views/admin/index/browse.php:20 views/admin/index/item.php:20
+#: views/admin/index/browse.php:21 views/admin/index/item.php:19
 msgid "Views"
 msgstr ""
 
-#: views/admin/index/browse.php:34
+#: views/admin/index/browse.php:30
+msgid "[Missing item]"
+msgstr ""
+
+#: views/admin/index/browse.php:37
 msgid "All embeds for this item"
 msgstr ""
 
-#: views/admin/index/item.php:3
+#: views/admin/index/item.php:2
 #, php-format
 msgid "Embed Statistics for %s"
 msgstr ""
 
-#: views/public/index/embed.php:31
+#: views/public/index/embed.php:33
 msgid "From: "
 msgstr ""
