@@ -17,24 +17,22 @@ body { margin: 20px 20px 0 20px; }
 queue_css_string($css);
 echo head_css();
 ?>
-<?php $rights = metadata($item, array('Dublin Core', 'Rights')); ?>
+<?php $rights = metadata($item, ['Dublin Core', 'Rights']); ?>
 </head>
 <body>
 <div>
 <?php if (metadata('item', 'has files')): ?>
     <?php $files = $item->Files; ?>
-    <div class="thumbnail"><?php echo file_image('thumbnail', array(), $files[0]); ?></div>
+    <div class="thumbnail"><?php echo file_image('thumbnail', [], $files[0]); ?></div>
 <?php endif; ?>
     <div class='content'>
-        <div class="caption"><a target='_blank' href="<?php echo record_url($item, 'show') ; ?>"><?php echo metadata('item', array('Dublin Core', 'Title')); ?></a></div>
+        <div class="caption"><a target='_blank' href="<?php echo record_url($item, 'show') ; ?>"><?php echo metadata('item', ['Dublin Core', 'Title']); ?></a></div>
         <?php if($rights != ''): ?>
         <p class="rights"><?php echo __('Rights'); ?><span class="explanation"><?php echo $rights; ?></span></p>
         <?php endif; ?>
-        <p class="source"><?php echo __('From: '); ?><?php echo link_to_home_page(null, array('target'=>'_blank')); ?></p>
-        <?php fire_plugin_hook('embed_codes_content', array('item'=>$item, 'view'=>$this)); ?>
+        <p class="source"><?php echo __('From: '); ?><?php echo link_to_home_page(null, ['target'=>'_blank']); ?></p>
+        <?php fire_plugin_hook('embed_codes_content', ['item' => $item, 'view' => $this]); ?>
     </div>
-
-
 </div>
 </body>
 </html>

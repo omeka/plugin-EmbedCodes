@@ -2,22 +2,23 @@
 
 class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
 {
-    protected $_hooks = array('install', 
-                              'uninstall', 
-                              'define_routes',
-                              'public_items_show',
-                              'admin_items_show_sidebar',
-                              'admin_items_browse_detailed_each',
-                              'initialize'
-                              );
-    
-    protected $_filters = array('admin_navigation_main');
-    
+    protected $_hooks = [
+        'install',
+        'uninstall',
+        'define_routes',
+        'public_items_show',
+        'admin_items_show_sidebar',
+        'admin_items_browse_detailed_each',
+        'initialize',
+    ];
+
+    protected $_filters = ['admin_navigation_main'];
+
     public function hookInitialize()
     {
         add_translation_source(dirname(__FILE__) . '/languages');
     }
-    
+
     public function hookInstall()
     {
         $db = $this->_db;
@@ -34,28 +35,28 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
             ) ENGINE=MyISAM ; ";
         $db->query($sql);
     }
-    
+
     public function hookUninstall()
     {
         $db = $this->_db;
         $sql = "DROP TABLE IF EXISTS `$db->Embed`; ";
         $db->query($sql);
     }
-    
+
     public function hookPublicItemsShow($args)
     {
         $item = $args['item'];
-        $uri = absolute_url(array('controller'=>'items', 'action'=>'embed', 'id'=>$item->id), 'id');
-        
+        $uri = absolute_url(['controller' => 'items', 'action' => 'embed', 'id' => $item->id], 'id');
+
         $html = "<div id='embed-codes'><h2>" . __('Embed') . "</h2>";
         $html .= '<p><label for="embed-code-text">' . __("Copy the code below into your web page") . '</label></p>';
         $iFrameHtml = "<iframe class='omeka-embed' src='$uri' style='margin: 2em 0; border: 1px solid #e7e7e7' width='315px' height='285px' frameborder='0' allowfullscreen></iframe>";
         $html .= "<textarea id='embed-code-text' style='font-family:monospace' rows='4' readonly>$iFrameHtml</textarea>";
         $html .= "</div>";
-        
+
         echo $html;
     }
-    
+
     public function hookAdminItemsBrowseDetailedEach($args)
     {
         $item = $args['item'];
@@ -66,13 +67,13 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
         $html .= '</p>';
         echo $html;
     }
-    
+
     public function hookAdminItemsShowSidebar($args)
     {
         $item = $args['item'];
         $embedTable = get_db()->getTable('Embed');
         $totalEmbeds = $embedTable->totalEmbeds($item->id);
-        $allEmbeds = $embedTable->findBy(array('item_id'=>$item->id));
+        $allEmbeds = $embedTable->findBy(['item_id'=>$item->id]);
         $html = "<div class='embed-codes panel'>";
         $html .= "<h4>" . __("Embeds") . "</h4>";
         $html .= "<a href='" . url('embed-codes/item/' . $item->id) . "'>" . __('Details') . "</a>";
@@ -81,37 +82,37 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
         $html .= "</div>";
         echo $html;
     }
-    
+
     public function hookDefineRoutes($array)
-    {        
+    {
         $router = $array['router'];
         $router->addRoute(
             'embed',
             new Zend_Controller_Router_Route(
                 'items/embed/:id',
-                array(
+                [
                     'module'       => 'embed-codes',
                     'controller'   => 'index',
                     'action'       => 'embed',
-                )
+                ]
             )
-        );     
+        );
         $router->addRoute(
             'embed-item',
             new Zend_Controller_Router_Route(
                 'embed-codes/item/:id',
-                array(
+                [
                     'module' => 'embed-codes',
                     'controller' => 'index',
-                    'action' => 'item'        
-                )        
-            )      
-        );   
+                    'action' => 'item',
+                ]
+            )
+        );
     }
-    
+
     public function filterAdminNavigationMain($navArray)
     {
-        $navArray['EmbedCodes'] = array('label'=>__('Embedded Items'), 'uri'=>url('embed-codes'));
+        $navArray['EmbedCodes'] = ['label' => __('Embedded Items'), 'uri' => url('embed-codes')];
         return $navArray;
     }
 }

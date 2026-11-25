@@ -1,6 +1,6 @@
 <?php
-$title = $item ? __("Embed Statistics for %s", metadata($item, array('Dublin Core', 'Title'))) : __('Embed Statistics');
-echo head(array('title' => $title, 'bodyclass' => 'embed browse'));
+$title = $item ? __("Embed Statistics for %s", metadata($item, ['Dublin Core', 'Title'])) : __('Embed Statistics');
+echo head(['title' => $title, 'bodyclass' => 'embed browse']);
 ?>
 <div id='primary'>
 <p><?php echo __('Total embeds: %d', $total); ?></p>
@@ -17,7 +17,7 @@ echo head(array('title' => $title, 'bodyclass' => 'embed browse'));
             $browseHeadings[__('First viewed')] = 'first_view';
             $browseHeadings[__('Last viewed')] = 'last_view';
             $browseHeadings[__('Views')] = 'view_count';
-            echo browse_sort_links($browseHeadings, array('link_tag' => 'th scope="col"', 'list_tag' => '')); 
+            echo browse_sort_links($browseHeadings, ['link_tag' => 'th scope="col"', 'list_tag' => '']);
             ?>    
         </tr>
         </thead>

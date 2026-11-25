@@ -1,7 +1,5 @@
 <?php
-
-echo head(array('title'=>__("Embed Statistics"), 'bodyclass'=>'embed browse'));
-
+echo head(['title' => __("Embed Statistics"), 'bodyclass' => 'embed browse']);
 ?>
 <div id='primary'>
 <p><?php echo __('Total embeds: %d', $total); ?></p>
@@ -19,7 +17,7 @@ echo head(array('title'=>__("Embed Statistics"), 'bodyclass'=>'embed browse'));
             $browseHeadings[__('First viewed')] = 'first_view';
             $browseHeadings[__('Last viewed')] = 'last_view';
             $browseHeadings[__('Views')] = 'view_count';
-            echo browse_sort_links($browseHeadings, array('link_tag' => 'th scope="col"', 'list_tag' => '')); 
+            echo browse_sort_links($browseHeadings, ['link_tag' => 'th scope="col"', 'list_tag' => '']);
             ?>    
         </tr>
         </thead>
@@ -27,7 +25,7 @@ echo head(array('title'=>__("Embed Statistics"), 'bodyclass'=>'embed browse'));
         
         <?php foreach(loop('embed', $embeds) as $embed):
             $item = get_record_by_id('item', $embed->item_id);
-            $title = $item ? link_to($item, 'show', metadata($item, array('Dublin Core', 'Title'))) :  __('[Missing item]');
+            $title = $item ? link_to($item, 'show', metadata($item, ['Dublin Core', 'Title'])) :  __('[Missing item]');
         ?>
         <tr>
             <td>
@@ -36,7 +34,7 @@ echo head(array('title'=>__("Embed Statistics"), 'bodyclass'=>'embed browse'));
                 <li class='details-link'><a href='<?php echo url('embed-codes/item/' . $embed->item_id); ?>'>
                     <?php echo __('All embeds for this item'); ?></a>
                 </li>
-                <?php fire_plugin_hook('embed_codes_browse_each', array('view' => $this, 'embed' => $embed, 'item' => $item)); ?>
+                <?php fire_plugin_hook('embed_codes_browse_each', ['view' => $this, 'embed' => $embed, 'item' => $item]); ?>
                 </ul>
             </td>
             <td><?php echo metadata('embed', 'host'); ?></td>
