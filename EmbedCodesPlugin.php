@@ -32,7 +32,7 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
               `last_view` date DEFAULT NULL,
               `view_count` int(11) NOT NULL DEFAULT '0',
               PRIMARY KEY (`id`)
-            ) ENGINE=MyISAM ; ";
+            ) ENGINE=InnoDB; ";
         $db->query($sql);
     }
 
