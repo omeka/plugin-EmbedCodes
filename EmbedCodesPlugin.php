@@ -48,9 +48,9 @@ class EmbedCodesPlugin extends Omeka_Plugin_AbstractPlugin
         $uri = absolute_url(array('controller'=>'items', 'action'=>'embed', 'id'=>$item->id), 'id');
         
         $html = "<div id='embed-codes'><h2>" . __('Embed') . "</h2>";
-        $html .= "<p>" . __("Copy the code below into your web page") . "</p>";
+        $html .= '<p><label for="embed-code-text">' . __("Copy the code below into your web page") . '</label></p>';
         $iFrameHtml = "<iframe class='omeka-embed' src='$uri' style='margin: 2em 0; border: 1px solid #e7e7e7' width='315px' height='285px' frameborder='0' allowfullscreen></iframe>";
-        $html .= "<textarea id='embed-code-text' style='font-family:monospace' rows='4'>$iFrameHtml</textarea>";
+        $html .= "<textarea id='embed-code-text' style='font-family:monospace' rows='4' readonly>$iFrameHtml</textarea>";
         $html .= "</div>";
         
         echo $html;
